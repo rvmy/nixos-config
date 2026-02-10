@@ -8,7 +8,27 @@
 
 {
 
+  stylix = {
+    # enable = true;
+    opacity = {
+      terminal = 0.90;
+      applications = 0.95;
+      popups = 0.95;
+    };
+    targets = {
+      waybar.enable = true;
+      kitty.enable = true;
+      # waybar.enable = false;
+      # rofi.enable = false;
+      # hyprland.enable = false;
+      # hyprlock.enable = false;
+      # ghostty.enable = false;
+      # qt.enable = true;
+    };
+  };
+
   fonts.fontconfig.enable = true;
+
   user.helix.enable = true;
   user.starship.enable = true;
   user.zed.enable = true;
@@ -16,7 +36,10 @@
   user.ghostty.enable = true;
   user.fastfetch.enable = true;
   user.hyprland.enable = true;
-
+  programs.kitty = {
+    enable = true;
+    extraConfig = "";
+  };
   home.packages = with pkgs; [
     font-awesome
     nerd-fonts.jetbrains-mono
@@ -26,6 +49,7 @@
     libnotify
     copyq
     grim
+    nautilus
     #helix
     slurp
     wl-clipboard

@@ -6,6 +6,10 @@
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -14,6 +18,7 @@
       nixpkgs,
       nixpkgs-master,
       home-manager,
+      stylix,
       ...
     }:
     let
@@ -40,6 +45,7 @@
         lib.nixosSystem {
           inherit system;
           modules = [
+            stylix.nixosModules.stylix
             { networking.hostName = host; }
             (hostsPath + "/${host}")
           ]
@@ -60,6 +66,7 @@
           value = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = userModules ++ [
+              stylix.homeModules.stylix
               {
                 home.username = username;
                 home.homeDirectory = "/home/${username}";

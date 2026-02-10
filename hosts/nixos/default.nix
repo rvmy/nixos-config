@@ -7,6 +7,13 @@
 
 {
 
+  stylix = {
+    enable = true;
+    image = ../../assets/wallpapers/wallpaper1.jpg;
+    polarity = "dark";
+
+  };
+
   users.users.rami = {
     isNormalUser = true;
     description = "rami";

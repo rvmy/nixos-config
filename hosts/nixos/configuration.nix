@@ -220,7 +220,6 @@
     vim
     wget
     # foot
-    kitty
     waybar
     hyprpaper
     rofi
