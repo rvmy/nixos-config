@@ -25,10 +25,9 @@
         ];
         exec-once = [
           "waybar"
-          #  "killall -q swww-daemon;sleep .5 && swww-daemon"
           "swww-daemon"
           "swaync"
-          "sleep 1.5 && swww img ${config.stylix.image} --transition-type grow --transition-duration 1"
+          "sleep 1.5 && swww img ${hostCfg.host.stylixImage} --transition-type grow --transition-duration 1"
         ];
 
         input = {

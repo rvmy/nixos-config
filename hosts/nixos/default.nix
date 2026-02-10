@@ -4,18 +4,22 @@
   pkgs,
   ...
 }:
-
+let
+  hostCfg = import ./config.nix;
+in
 {
 
   stylix = {
     enable = true;
     polarity = "dark";
-  };
 
-  stylix.opacity = {
-    terminal = 1.0;
-    desktop = 1.0;
-    applications = 1.0;
+    opacity = {
+      terminal = 1.0;
+      desktop = 1.0;
+      applications = 1.0;
+    };
+
+    image = hostCfg.host.stylixImage;
   };
 
   users.users.rami = {

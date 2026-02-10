@@ -9,23 +9,23 @@
 
 {
 
-  stylix = {
-    # enable = true;
-    enable = true;
-    opacity = {
-      terminal = 0.90;
-      applications = 0.95;
-      popups = 0.95;
-    };
-    targets = {
-      waybar.enable = true;
-      kitty.enable = true;
-      hyprland.enable = true;
-      starship.enable = false;
-    };
-  };
+  # stylix = {
+  #   # enable = true;
+  #   enable = true;
+  #   opacity = {
+  #     terminal = 0.90;
+  #     applications = 0.95;
+  #     popups = 0.95;
+  #   };
+  #   targets = {
+  #     waybar.enable = true;
+  #     kitty.enable = true;
+  #     hyprland.enable = true;
+  #     starship.enable = false;
+  #   };
+  # };
 
-  stylix.image = ../../assets/wallpapers/wallpaper3.jpg;
+  # stylix.image = ../../assets/wallpapers/wallpaper3.jpg;
 
   fonts.fontconfig.enable = true;
 
