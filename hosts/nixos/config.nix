@@ -1,0 +1,5 @@
+{
+  host = {
+    mainUser = "rami";
+  };
+}
