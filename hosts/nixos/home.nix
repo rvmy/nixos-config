@@ -15,6 +15,7 @@
   user.git.enable = true;
   user.ghostty.enable = true;
   user.fastfetch.enable = true;
+  user.hyprland.enable = true;
 
   home.packages = with pkgs; [
     font-awesome
