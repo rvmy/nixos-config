@@ -9,9 +9,13 @@
 
   stylix = {
     enable = true;
-    image = ../../assets/wallpapers/wallpaper1.jpg;
     polarity = "dark";
+  };
 
+  stylix.opacity = {
+    terminal = 1.0;
+    desktop = 1.0;
+    applications = 1.0;
   };
 
   users.users.rami = {

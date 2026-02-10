@@ -3,6 +3,7 @@
   pkgs,
   pkgs-master,
   lib,
+  hostCfg,
   ...
 }:
 
@@ -10,6 +11,7 @@
 
   stylix = {
     # enable = true;
+    enable = true;
     opacity = {
       terminal = 0.90;
       applications = 0.95;
@@ -18,14 +20,12 @@
     targets = {
       waybar.enable = true;
       kitty.enable = true;
-      # waybar.enable = false;
-      # rofi.enable = false;
-      # hyprland.enable = false;
-      # hyprlock.enable = false;
-      # ghostty.enable = false;
-      # qt.enable = true;
+      hyprland.enable = true;
+      starship.enable = false;
     };
   };
+
+  stylix.image = ../../assets/wallpapers/wallpaper3.jpg;
 
   fonts.fontconfig.enable = true;
 

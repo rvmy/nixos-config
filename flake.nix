@@ -76,6 +76,7 @@
             ];
             extraSpecialArgs = {
               pkgs-master = import nixpkgs-master { inherit system; };
+              hostCfg = hostCfg;
             };
           };
         };
