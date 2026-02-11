@@ -45,9 +45,9 @@
         lib.nixosSystem {
           inherit system;
           modules = [
-            stylix.nixosModules.stylix
             { networking.hostName = host; }
             (hostsPath + "/${host}")
+            stylix.nixosModules.stylix
           ]
           ++ systemModules;
         };
@@ -66,13 +66,14 @@
           value = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = userModules ++ [
-              stylix.homeModules.stylix
+
               {
                 home.username = username;
                 home.homeDirectory = "/home/${username}";
                 home.stateVersion = "25.11";
               }
               userFile
+              stylix.homeModules.stylix
             ];
             extraSpecialArgs = {
               pkgs-master = import nixpkgs-master { inherit system; };
