@@ -79,6 +79,7 @@
       starship.enable = false;
       gtk.enable = true;
       zed.enable = true;
+      rofi.enable = true;
     };
     image = hostCfg.host.stylixImage;
   };
@@ -121,6 +122,7 @@
   user.hyprland.enable = true;
   user.btop.enable = true;
   user.waybar.enable = true;
+  user.rofi.enable = true;
   programs.kitty = {
     enable = true;
     extraConfig = "";

@@ -159,7 +159,6 @@
     vim
     wget
     hyprpaper
-    rofi
     swww
     mpv
     ffmpeg-full

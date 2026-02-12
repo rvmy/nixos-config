@@ -145,7 +145,7 @@
           "$mainMod, R, exec, ~/.config/waybar/scripts/launch.sh"
           "$mainMod, P, pseudo,"
           "$mainMod, J, togglesplit,"
-          "$mainMod, SPACE, exec, ~/.config/rofi/launchers/type-1/launcher.sh || pkill rofi"
+          "$mainMod, SPACE, exec,  rofi -show drun"
           "$mainMod, Q, exec, mic-toggle"
           ", PRINT, exec, ~/.config/waybar/scripts/screenshot.sh area"
           "$mainMod, E, exec, zeditor"
