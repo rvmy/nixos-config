@@ -28,17 +28,18 @@
 
       # Helper functions
       auto = import ./lib/auto.nix { inherit lib; };
+      scriptsLib = import ./lib/scripts.nix { inherit lib pkgs; };
 
       # Paths
       hostsPath = ./hosts;
       systemModulesPath = ./modules/system;
       userModulesPath = ./modules/user;
+      globalScriptsPath = ./scripts;
 
       # Auto-discover
       hosts = auto.discoverHosts hostsPath;
       systemModules = auto.importAll systemModulesPath;
       userModules = auto.importAll userModulesPath;
-
       # NixOS System
       mkNixos =
         host:
@@ -60,6 +61,11 @@
           hostCfg = import (hostPath + "/config.nix");
           username = hostCfg.host.mainUser or (throw "host.username not defined in ${host}/config.nix");
           userFile = hostPath + "/home.nix";
+
+          globalScripts = scriptsLib.mkScriptsFromDir globalScriptsPath;
+          hostScriptsPath = hostPath + "/scripts";
+          hostScripts = scriptsLib.mkScriptsFromDir hostScriptsPath;
+          allScripts = globalScripts ++ hostScripts;
         in
         {
           name = host;
@@ -71,6 +77,12 @@
                 home.username = username;
                 home.homeDirectory = "/home/${username}";
                 home.stateVersion = "25.11";
+                home.packages = allScripts;
+                home.file.".config/sounds" = {
+                  source = ./assets/sounds;
+                  recursive = true;
+                };
+
               }
               userFile
               stylix.homeModules.stylix

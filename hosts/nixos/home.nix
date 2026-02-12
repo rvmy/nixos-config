@@ -19,23 +19,39 @@
       scheme = "Stylix Blue Custom";
       author = "you";
 
-      base00 = "#081522"; # Deep Navy (background)
-      base01 = "#0B1C2D"; # Dark Blue
-      base02 = "#102A43"; # Midnight Blue
-      base03 = "#1C3A5F"; # Slate Blue
-      base04 = "#6B7C93"; # Muted Gray
-      base05 = "#E6EDF3"; # Off White (text)
-      base06 = "#B0BEC5"; # Light Gray
-      base07 = "#FFFFFF";
+      # base00 = "#0b0e14";
+      # base01 = "#131721";
+      # base02 = "#202229";
+      # base03 = "#3e4b59";
+      # base04 = "#bfbdb6";
+      # base05 = "#e6e1cf";
+      # base06 = "#ece8db";
+      # base07 = "#f2f0e7";
+      # base08 = "#f07178";
+      # base09 = "#ff8f40";
+      # base0A = "#ffb454";
+      # base0B = "#aad94c";
+      # base0C = "#95e6cb";
+      # base0D = "#59c2ff";
+      # base0E = "#d2a6ff";
+      # base0F = "#e6b450";
+      base00 = "#1f2430";
+      base01 = "#242936";
+      base02 = "#323844";
+      base03 = "#4A5059";
+      base04 = "#707a8c";
+      base05 = "#cccac2";
+      base06 = "#d9d7ce";
+      base07 = "#f3f4f5";
+      base08 = "#f28779";
+      base09 = "#ffad66";
+      base0A = "#ffd173";
+      base0B = "#d5ff80";
+      base0C = "#95e6cb";
+      base0D = "#73d0ff";
+      base0E = "#d4bfff";
+      base0F = "#f27983";
 
-      base08 = "#EB5757"; # Red
-      base09 = "#F2994A"; # Orange
-      base0A = "#F2C94C"; # Amber
-      base0B = "#2BB0A6"; # Teal
-      base0C = "#2D9CDB"; # Cyan
-      base0D = "#2F80ED"; # Stylix Blue
-      base0E = "#BB6BD9"; # Magenta
-      base0F = "#56A0FF"; # Soft Blue
     };
 
     opacity = {
@@ -43,15 +59,57 @@
       applications = 0.95;
       popups = 0.95;
     };
+
+    # fonts = {
+    #   # monospace = {
+    #   #   package = pkgs.jetbrains-mono;
+    #   #   name = "JetBrains Mono";
+    #   # };
+
+    #   # sizes = {
+    #   #   terminal = 12;
+    #   # };
+    # };
+
     targets = {
       waybar.enable = false;
       kitty.enable = true;
       hyprland.enable = true;
+      ghostty.enable = true;
       starship.enable = false;
       gtk.enable = true;
       zed.enable = true;
     };
     image = hostCfg.host.stylixImage;
+  };
+
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerd-fonts.jetbrains-mono;
+      name = "JetBrainsMono Nerd Font Mono";
+    };
+
+    # sansSerif = {
+    #   package = pkgs.noto-fonts;
+    #   name = "Noto Sans";
+    # };
+
+    # serif = {
+    #   package = pkgs.noto-fonts;
+    #   name = "Noto Serif";
+    # };
+
+    emoji = {
+      package = pkgs.noto-fonts-color-emoji;
+      name = "Noto Color Emoji";
+    };
+
+    sizes = {
+      terminal = 10; # Ghostty, foot, alacritty
+      applications = 11;
+      desktop = 10;
+      popups = 10;
+    };
   };
 
   user.helix.enable = true;
@@ -61,6 +119,8 @@
   user.ghostty.enable = true;
   user.fastfetch.enable = true;
   user.hyprland.enable = true;
+  user.btop.enable = true;
+  user.waybar.enable = true;
   programs.kitty = {
     enable = true;
     extraConfig = "";
@@ -87,7 +147,8 @@
     rmpc
     pkgs-master.yt-dlp
     bat
-    # dysk
+    cava
+    dysk
     pastel
     calcure
     # fastfetch

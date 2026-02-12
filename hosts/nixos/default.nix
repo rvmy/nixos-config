@@ -24,23 +24,22 @@ in
       scheme = "Stylix Blue Custom";
       author = "you";
 
-      base00 = "#081522"; # Deep Navy (background)
-      base01 = "#0B1C2D"; # Dark Blue
-      base02 = "#102A43"; # Midnight Blue
-      base03 = "#1C3A5F"; # Slate Blue
-      base04 = "#6B7C93"; # Muted Gray
-      base05 = "#E6EDF3"; # Off White (text)
-      base06 = "#B0BEC5"; # Light Gray
-      base07 = "#FFFFFF";
-
-      base08 = "#EB5757"; # Red
-      base09 = "#F2994A"; # Orange
-      base0A = "#F2C94C"; # Amber
-      base0B = "#2BB0A6"; # Teal
-      base0C = "#2D9CDB"; # Cyan
-      base0D = "#2F80ED"; # Stylix Blue
-      base0E = "#BB6BD9"; # Magenta
-      base0F = "#56A0FF"; # Soft Blue
+      base00 = "#1f2430";
+      base01 = "#242936";
+      base02 = "#323844";
+      base03 = "#4A5059";
+      base04 = "#707a8c";
+      base05 = "#cccac2";
+      base06 = "#d9d7ce";
+      base07 = "#f3f4f5";
+      base08 = "#f28779";
+      base09 = "#ffad66";
+      base0A = "#ffd173";
+      base0B = "#d5ff80";
+      base0C = "#95e6cb";
+      base0D = "#73d0ff";
+      base0E = "#d4bfff";
+      base0F = "#f27983";
     };
     image = hostCfg.host.stylixImage;
 
