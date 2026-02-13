@@ -11,16 +11,9 @@
 
   programs.ags = {
     enable = true;
-
-    # symlink to ~/.config/ags
-    #  configDir = ../../ags;
     configDir = ../../ags;
-    # additional packages and executables to add to gjs's runtime
-    # extraPackages = with pkgs; [
-    #   inputs.astal.packages.${pkgs.system}.battery
-    #   fzf
-    # ];
   };
+
   stylix = {
     enable = true;
     polarity = "dark";
@@ -114,21 +107,6 @@
 
     ];
     settings = {
-
-      # keymap.mgr.prepend_keymap = [
-
-      #   {
-      #     on = [ "Z" ]; # Shift + d
-      #     run = ''
-      #       shell '
-      #         dir="$@"
-      #         img=$(find "$dir" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \) | shuf -n 1)
-      #         [ -n "$img" ] && swww img "$img" --transition-type any
-      #       '
-      #     '';
-      #     desc = "Set wallpaper from directory";
-      #   }
-      # ];
       mgr = {
 
         ratio = [

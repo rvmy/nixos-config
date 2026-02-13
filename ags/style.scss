@@ -1,37 +1,35 @@
-// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-$fg-color: #{"@theme_fg_color"};
-$bg-color: #{"@theme_bg_color"};
+$accent: #6791c9;
+$fg-color: #fff;
+$bg-color: #101213;
+$inactive-color: #1b1d1e;
+$rounded: 14px;
+$font-size: 0.8rem;
 
-#wallpaper-switcher {
-  .search-entry {
-    background: rgba(255, 255, 255, 0.06);
-    padding: 8px 12px;
-    border-radius: 12px;
-    font-size: 13px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #eee;
+window.wall-picker {
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  border: 2.5px solid color-mix(in srgb, var(--fg) 20%, transparent);
+  color: var(--fg);
+  min-width: 400px;
+  margin: 10px;
+  padding: 20px;
+  border-radius: $rounded;
+
+  .wall-picker-bg {
+    background: var(--bg);
+    border-radius: $rounded;
   }
 
-  .search-entry placeholder {
-    color: rgba(255, 255, 255, 0.4);
+  .button {
+    border-radius: $rounded;
+    opacity: 0.6;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
   }
 
-  .search-entry:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(100, 180, 255, 0.8);
-  }
-
-  button {
-    background: transparent;
-    border-radius: 8px;
-    padding: 4px;
-  }
-
-  button:hover {
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  button:focus {
-    background: rgba(61, 174, 233, 0.25);
+  picture {
+    border-radius: $rounded;
   }
 }
