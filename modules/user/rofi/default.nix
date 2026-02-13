@@ -48,7 +48,7 @@ in
           "window" = {
             location = mkLiteral "center";
             width = mkLiteral "600";
-            background-color = mkLiteral "${config.stylix.base16Scheme.base00}CC";
+            background-color = mkLiteral "${config.stylix.base16Scheme.base00}E6";
             border = mkLiteral "2px";
             border-color = mkLiteral "${config.stylix.base16Scheme.base02}";
             border-radius = mkLiteral "10px";

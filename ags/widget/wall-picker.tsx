@@ -53,7 +53,7 @@ export default function WallPicker() {
   const wallpaperList = getWallpaperList()
   return (
     <window
-      visible
+      visible={false}
       name="wall-picker"
       cssClasses={["wall-picker"]}
       application={app}

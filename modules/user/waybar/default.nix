@@ -13,35 +13,53 @@
         {
           layer = "top";
           position = "top";
-          margin = "10";
-          height = 30;
+          margin = "5";
+          height = 25;
           spacing = 5;
-          modules-left = [
+
+          # Right Modules
+          modules-right = [
             "tray"
-            "clock"
+            "custom/separator"
             "pulseaudio#microphone"
             "pulseaudio"
-          ];
-
-          modules-center = [ "hyprland/workspaces" ];
-
-          modules-right = [
             "network"
             "cpu"
             "memory"
             "custom/notification"
-            "custom/logo"
           ];
 
-          "tray" = {
-            icon-size = "18";
-            spacing = "10";
+          # Center Modules
+          modules-center = [
+            #   "hyprland/window"
+            "clock"
+          ];
+
+          # Left Modules
+          modules-left = [
+            "custom/logo"
+            "custom/separator"
+            "hyprland/workspaces"
+            "cava"
+          ];
+
+          "custom/expand-icon" = {
+            "format" = " ";
+            "tooltip" = false;
           };
 
-          "clock" = {
-            format = "󰥔 {:%I:%M}";
-            tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-            format-alt = "󰃭 {:%a; %d %b}";
+          "custom/separator" = {
+            "format" = "|";
+            "tooltip" = false;
+          };
+
+          "hyprland/window" = {
+            "format" = "{title} - {class}";
+            "max-length" = 55;
+          };
+          "tray" = {
+            icon-size = "12";
+            spacing = "4";
           };
 
           "pulseaudio#microphone" = {
@@ -53,6 +71,7 @@
             on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+";
             on-scroll-down = "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-";
           };
+
           "pulseaudio" = {
             format = "󰋎 {volume}%";
             format-muted = "󰋐 {volume}%";
@@ -62,31 +81,67 @@
             scroll-step = "5";
           };
 
+          "clock" = {
+            locale = "en_US.UTF-8";
+            format = "{:%d/%m %I:%M %p}";
+            format-alt = "{:L%d %B W%V %Y}";
+            tooltip-format = "<span>{calendar}</span>";
+            "calendar" = {
+              "mode" = "month";
+              "mode-mon-col" = 3;
+              "on-click-right" = "mode";
+              "format" = {
+                "month" = "<span color='#ffead3'><b>{}</b></span>";
+                "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
+                "today" = "<span color='#ff6699'><b>{}</b></span>";
+              };
+            };
+          };
+
+          "cava" = {
+            #"cava_config" = "$XDG_CONFIG_HOME/cava/cava.conf";
+            "framerate" = 30;
+            "autosens" = 1;
+            "bars" = 14;
+            "lower_cutoff_freq" = 50;
+            "higher_cutoff_freq" = 10000;
+            "method" = "pipewire";
+            "source" = "auto";
+            "stereo" = true;
+            "bar_delimiter" = 0;
+            "noise_reduction" = 0.77;
+            "input_delay" = 2;
+            "hide_on_silence" = true;
+            "format-icons" = [
+              "▁"
+              "▂"
+              "▃"
+              "▄"
+              "▅"
+              "▆"
+              "▇"
+              "█"
+            ];
+            "actions" = {
+              "on-click-right" = "mode";
+            };
+          };
+
           "hyprland/workspaces" = {
             format = "{icon}";
             on-click = "activate";
             active-only = false;
             all-outputs = true;
             ignore-empty = false;
+            disable-scroll = true;
             persistent-workspaces = {
               "*" = 5;
             };
 
-            "format-icons" = {
-              "1" = "";
-              "2" = "";
-              "3" = "";
-              "4" = "";
-              "5" = "";
-              "default" = "";
-            };
-            on-scroll-up = "hyprctl dispatch workspace e+1";
-            on-scroll-down = "hyprctl dispatch workspace e-1";
           };
 
           "custom/logo" = {
             format = "";
-            #  "on-click" = "~/.config/rofi/launchers/type-1/launcher.sh || pkill rofi";
             tooltip = false;
           };
 
@@ -106,6 +161,7 @@
             interval = 5;
             format = " {percentage}%";
           };
+
           "custom/notification" = {
             tooltip = true;
             format = "<span size='16pt'>{icon}</span>";
@@ -131,95 +187,149 @@
 
       style = ''
         @define-color bg ${config.stylix.base16Scheme.base00};
-        @define-color sec-bg ${config.stylix.base16Scheme.base02};
-        @define-color fg ${config.stylix.base16Scheme.base05};
+        @define-color foreground ${config.stylix.base16Scheme.base05};
         * {
-          border: none;
-          font-family: "JetBrainsMono Nerd Font", "Segoe UI", sans-serif;
-          font-size: 13px;
-          font-weight: 500;
-          min-height: 0;
+           font-family: "JetBrainsMono Nerd Font", "Segoe UI", sans-serif;
+           border: none;
+           padding: 0px;
+           min-height: 0;
+           transition: background-color .3s ease-out;
+           font-weight: bold;
+           font-size: 12px;
         }
 
-        window#waybar {
+        window#waybar  {
+          background-color: transparent;
+        }
+
+        #waybar > box {
+          border-radius: 7px;
+          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          margin: 0px 2px 2px 2px;
           background-color: @bg;
-          color: #c0caf5;
-          border-radius: 20px;
-          padding: 0;
-          margin: 0;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
+          min-height: 20px;
+          transition-property: background-color;
+          transition-duration: .5s;
         }
 
-        /* Unified module styling */
-        #workspaces,
-        #tray,
-        #clock,
-        #pulseaudio,
-        #pulseaudio.microphone,
-        #network,
-        #cpu,
-        #memory,
-        #custom-notification,
-        #custom-logo {
-          background-color: @sec-bg;
-          color: #c0caf5;
-          padding: 0 16px;
-          margin: 4px;
-          border-radius: 12px;
+        .modules-left {
+          margin-left: 4px;
         }
 
-        /* Workspaces */
+        .modules-right {
+          margin-right: 4px;
+        }
+
+        button {
+          box-shadow: inset 0 -3px transparent;
+          border: none;
+          border-radius: 0;
+          transition: 0.3s ease-in-out;
+        }
+
+        button:hover {
+          background: inherit;
+        }
+
+        #workspaces {
+            margin: 0px 0px;
+            transition: 0.1s ease;
+            padding: 1px 4px;
+        }
+
+
         #workspaces button {
-          color: #565f89;
-          padding: 0 10px;
-          border-radius: 12px;
-          margin: 0 2px;
-        }
-
-        #workspaces button:not(.empty) {
-          color: #c0caf5;
+          padding: 1px 2px;
+          margin: 0px;
+          color: alpha(@foreground, 0.65);
+          border: none;
+          opacity: 1.0;
+          font-weight: 900;
+          border: none;
+          border-radius: 0;
         }
 
 
         #workspaces button.active {
-          color: #7aa2f7;
-          background-color: rgba(122, 162, 247, 0.15);
-          font-weight: bold;
+          color: @bg;
+          background-color: @foreground;
+          transition: all 0.15s ease;
+          padding: 1px 2px;
+          opacity: 1.0;
         }
 
-        /* Muted states */
-        #pulseaudio.muted,
-        #pulseaudio.microphone.muted {
-          color: #f7768e;
-          background-color: rgba(247, 118, 142, 0.1);
+        #workspaces button.empty:hover,
+        #workspaces button:hover {
+            background: transparent;
+            color: alpha(@foreground, 1);
+            animation: ws_hover 20s ease-in-out 1;
+            transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
         }
 
-        /* Notification module */
-        #custom-notification {
-          padding: 0 12px;
+        #workspaces button.empty {
+          opacity: 0.4;
+          color: alpha(@foreground, 0.45);
+          transition: all 0.15s ease;
+          padding: 1px 2px;
         }
 
-        /* Hover effects */
-        #pulseaudio:hover,
-        #pulseaudio.microphone:hover,
+        #workspaces button.empty.active {
+          opacity: 0.4;
+          background-color: @foreground;
+          color: alpha(@background, 0.45);
+          transition: all 0.15s ease;
+          padding: 1px 2px;
+        }
+
+        #memory,
+        #mpris,
+        #cpu,
+        #clock,
+        #network,
+        #pulseaudio,
+        #custom-notification,
+        #custom-logo{
+          min-width: 12px;
+          padding: 0 4px;
+          margin: 1px 3px 1px 3px;
+          opacity: 0.5;
+        }
+
+        #custom-separator {
+          opacity: 0.2;
+          padding-top: 2px;
+          padding-left: 4px;
+          padding-right: 4px;
+        }
+
+        tooltip {
+          padding: 2px;
+        }
+
+
         #clock:hover,
-        #custom-logo:hover {
-          background-color: rgba(65, 72, 104, 0.9);
+        #tray:hover,
+        #cpu:hover,
+        #memory:hover,
+        #custom-notification,
+        #network:hover,
+        #custom-logo,
+        #pulseaudio:hover {
+          border-radius: 0px;
+          opacity: 1;
+          background-color: transparent;
+          color: @foreground;
         }
 
-        /* Battery (only if module exists) */
-        #battery.warning {
-          color: #e0af68;
-        }
-
-        #battery.critical {
-          color: #f7768e;
-          animation: blink 1s linear infinite;
-        }
-
-        @keyframes blink {
-          50% { opacity: 0.3; }
+        #pulseaudio.microphone.source-muted {
+            color: #bf616a;
+            background-color: transparent;
+            background: none;
+             opacity: 1;
         }
       '';
+
     };
 
   };
