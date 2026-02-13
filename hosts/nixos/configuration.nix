@@ -74,23 +74,6 @@
     pulse.enable = true;
   };
 
-  ## Yazi File Manager
-  programs.yazi = {
-    enable = true;
-    settings = {
-      yazi = {
-        opener = {
-          edit = [
-            {
-              run = ''hx "$@"'';
-              block = true;
-            }
-          ];
-        };
-      };
-    };
-  };
-
   services.flatpak.enable = true;
   programs.xfconf.enable = true;
   xdg.portal.extraPortals = [
@@ -162,6 +145,7 @@
     swww
     mpv
     ffmpeg-full
+    # ags
   ];
 
   nix.settings.experimental-features = [

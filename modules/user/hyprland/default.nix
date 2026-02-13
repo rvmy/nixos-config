@@ -8,6 +8,7 @@
 {
   options.user.hyprland.enable = lib.mkEnableOption "Enable Hyprland";
   config = lib.mkIf config.user.hyprland.enable {
+
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {
@@ -24,6 +25,7 @@
           "HYPRCURSOR_SIZE,24"
         ];
         exec-once = [
+          "ags"
           "waybar"
           "swww-daemon"
           "swaync"
@@ -141,6 +143,8 @@
           "$mainMod, M, exit,"
           "$mainMod, F, exec, $fileManager"
           "$mainMod, X, exec, togglefloating"
+          "$mainMod, W, exec, kitty --title yazi -e yazi ~/pictures/wallpapers/"
+          "$mainMod SHIFT, W, exec, ags toggle wallpaper-switcher"
           "$mainMod, V, exec, copyq toggle"
           "$mainMod, R, exec, ~/.config/waybar/scripts/launch.sh"
           "$mainMod, P, pseudo,"
@@ -206,6 +210,8 @@
         ];
 
         windowrule = [
+          "float on, match:class ^(kitty)$, match:title ^(yazi)$"
+          "size 850 250, match:class ^(kitty)$, match:title ^(yazi)$"
           {
             name = "suppress-maximize-events";
             match = {
@@ -235,6 +241,7 @@
             move = "20 monitor_h-120";
             float = true;
           }
+
         ];
       };
     };

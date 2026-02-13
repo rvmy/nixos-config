@@ -41,8 +41,12 @@ in
       base0E = "#d4bfff";
       base0F = "#f27983";
     };
-    image = hostCfg.host.stylixImage;
 
+    cursor = {
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+      size = 24;
+    };
   };
 
   stylix.targets.gtk.enable = true;
@@ -58,6 +62,57 @@ in
     ];
   };
 
+  ## Yazi File Manager
+  # programs.yazi = {
+  #   enable = true;
+  #   settings = {
+  #     yazi = {
+  #       manager = {
+  #         ratio = [
+  #           1
+  #           4
+  #           3
+  #         ];
+  #         sort_by = "alphabetical";
+  #         sort_sensitive = false;
+  #         sort_reverse = false;
+  #         sort_dir_first = true;
+  #         sort_translit = false;
+  #         linemode = "none";
+  #         show_hidden = false;
+  #         show_symlink = true;
+  #         scrolloff = 5;
+  #         mouse_events = [
+  #           "click"
+  #           "scroll"
+  #         ];
+  #         title_format = "Yazi: {cwd}";
+  #       };
+
+  #       # preview = {
+  #       #   image_filter = "lanczos3";
+  #       #   image_quality = 90;
+  #       #   tab_size = 1;
+  #       #   max_width = 600;
+  #       #   max_height = 900;
+  #       #   cache_dir = "";
+  #       #   ueberzug_scale = 1;
+  #       #   ueberzug_offset = [
+  #       #     0
+  #       #     0
+  #       #     0
+  #       #     0
+  #       #   ];
+  #       # };
+
+  #       # tasks = {
+  #       #   micro_workers = 5;
+  #       #   macro_workers = 10;
+  #       #   bizarre_retry = 5;
+  #       # };
+  #     };
+  #   };
+  # };
   imports = [
     ./configuration.nix
     ./hardware-configuration.nix

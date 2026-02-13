@@ -130,6 +130,9 @@
       ];
 
       style = ''
+        @define-color bg ${config.stylix.base16Scheme.base00};
+        @define-color sec-bg ${config.stylix.base16Scheme.base02};
+        @define-color fg ${config.stylix.base16Scheme.base05};
         * {
           border: none;
           font-family: "JetBrainsMono Nerd Font", "Segoe UI", sans-serif;
@@ -139,7 +142,7 @@
         }
 
         window#waybar {
-          background-color: rgba(30, 31, 41, 0.85);
+          background-color: @bg;
           color: #c0caf5;
           border-radius: 20px;
           padding: 0;
@@ -157,7 +160,7 @@
         #memory,
         #custom-notification,
         #custom-logo {
-          background-color: rgba(41, 46, 66, 0.9);
+          background-color: @sec-bg;
           color: #c0caf5;
           padding: 0 16px;
           margin: 4px;

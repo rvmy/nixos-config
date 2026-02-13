@@ -14,6 +14,9 @@ let
         grim
         slurp
         wl-clipboard
+        fd
+        sxiv
+        jq
       ];
 
       buildScripts =

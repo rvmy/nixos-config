@@ -6,10 +6,13 @@
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    astal.url = "github:aylur/astal";
+    ags.url = "github:aylur/ags";
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
 
   outputs =
@@ -19,8 +22,9 @@
       nixpkgs-master,
       home-manager,
       stylix,
+
       ...
-    }:
+    }@inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -83,9 +87,15 @@
                   recursive = true;
                 };
 
+                home.file."/pictures/wallpapers" = {
+                  source = ./assets/wallpapers;
+                  recursive = true;
+                };
+
               }
               userFile
               stylix.homeModules.stylix
+              inputs.ags.homeManagerModules.default
             ];
             extraSpecialArgs = {
               pkgs-master = import nixpkgs-master { inherit system; };
