@@ -25,7 +25,7 @@
           "HYPRCURSOR_SIZE,24"
         ];
         exec-once = [
-          "ags"
+          "ags run"
           "waybar"
           "swww-daemon"
           "swaync"
