@@ -12,10 +12,11 @@
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {
+
         "$mainMod" = "SUPER";
         "$terminal" = "ghostty";
         "$fileManager" = "natulis";
-        "$menu" = "wofi --show drun";
+
         monitor = [
           ",preferred,auto,auto"
         ];
@@ -24,6 +25,7 @@
           "XCURSOR_SIZE,24"
           "HYPRCURSOR_SIZE,24"
         ];
+
         exec-once = [
           "ags run"
           "waybar"
@@ -77,8 +79,6 @@
           gaps_in = 5;
           gaps_out = 10;
           border_size = 2;
-          # "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          # "col.inactive_border" = "rgba(595959aa)";
           resize_on_border = false;
           allow_tearing = false;
           layout = "dwindle";
@@ -87,20 +87,24 @@
         decoration = {
           rounding = 10;
           rounding_power = 2;
-          # active_opacity = 1.0;
-          # inactive_opacity = 1.0;
+          active_opacity = 1.0;
+          inactive_opacity = 0.90;
           shadow = {
             enabled = true;
             range = 4;
             render_power = 3;
-            # color = "rgba(1a1a1aee)";
           };
 
           blur = {
             enabled = true;
-            size = 3;
-            passes = 1;
-            vibrancy = 0.1696;
+            size = 4;
+            passes = 3;
+            #     noise = 0.08;
+            # contrast = 1.5;
+            # xray = false;
+            # #     vibrancy = 0.1696;
+            # ignore_opacity = false;
+            # new_optimizations = true;
           };
         };
 
@@ -210,6 +214,9 @@
         ];
 
         windowrule = [
+          "opacity 0.8 0.8, match:class ^(kitty)$"
+          "opacity 0.9 0.9, match:class ^(discord)$"
+          "opacity 0.8 0.8, match:class ^(com\.mitchellh\.ghostty)$"
           "float on, match:class ^(kitty)$, match:title ^(yazi)$"
           "size 850 250, match:class ^(kitty)$, match:title ^(yazi)$"
           {

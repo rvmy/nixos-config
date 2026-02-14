@@ -14,11 +14,11 @@ in
     autoEnable = false;
     polarity = "dark";
 
-    opacity = {
-      terminal = 1.0;
-      desktop = 1.0;
-      applications = 1.0;
-    };
+    # opacity = {
+    #   terminal = 1.0;
+    #   desktop = 1.0;
+    #   applications = 1.0;
+    # };
 
     base16Scheme = {
       scheme = "Stylix Blue Custom";
