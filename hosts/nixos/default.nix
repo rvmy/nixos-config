@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-stable,
   ...
 }:
 let
@@ -9,16 +10,16 @@ let
 in
 {
 
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
   stylix = {
     enable = true;
-    autoEnable = false;
+    autoEnable = true;
     polarity = "dark";
-
-    # opacity = {
-    #   terminal = 1.0;
-    #   desktop = 1.0;
-    #   applications = 1.0;
-    # };
+    targets = {
+      qt.enable = true;
+      #  kde.enable = true;
+    };
 
     base16Scheme = {
       scheme = "Stylix Blue Custom";
@@ -62,57 +63,11 @@ in
     ];
   };
 
-  ## Yazi File Manager
-  # programs.yazi = {
-  #   enable = true;
-  #   settings = {
-  #     yazi = {
-  #       manager = {
-  #         ratio = [
-  #           1
-  #           4
-  #           3
-  #         ];
-  #         sort_by = "alphabetical";
-  #         sort_sensitive = false;
-  #         sort_reverse = false;
-  #         sort_dir_first = true;
-  #         sort_translit = false;
-  #         linemode = "none";
-  #         show_hidden = false;
-  #         show_symlink = true;
-  #         scrolloff = 5;
-  #         mouse_events = [
-  #           "click"
-  #           "scroll"
-  #         ];
-  #         title_format = "Yazi: {cwd}";
-  #       };
+  programs.thunar = {
+    enable = true;
 
-  #       # preview = {
-  #       #   image_filter = "lanczos3";
-  #       #   image_quality = 90;
-  #       #   tab_size = 1;
-  #       #   max_width = 600;
-  #       #   max_height = 900;
-  #       #   cache_dir = "";
-  #       #   ueberzug_scale = 1;
-  #       #   ueberzug_offset = [
-  #       #     0
-  #       #     0
-  #       #     0
-  #       #     0
-  #       #   ];
-  #       # };
+  };
 
-  #       # tasks = {
-  #       #   micro_workers = 5;
-  #       #   macro_workers = 10;
-  #       #   bizarre_retry = 5;
-  #       # };
-  #     };
-  #   };
-  # };
   imports = [
     ./configuration.nix
     ./hardware-configuration.nix

@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 
 {
   # Bootloader.
@@ -13,21 +18,27 @@
   time.timeZone = "Africa/Cairo";
   # programs.thunar.enable = true;
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
+  # Select internationalisation properties.
+  # i18n.defaultLocale = "en_US.UTF-8";
+  # i18.
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "ar_EG.UTF-8";
-    LC_IDENTIFICATION = "ar_EG.UTF-8";
-    LC_MEASUREMENT = "ar_EG.UTF-8";
-    LC_MONETARY = "ar_EG.UTF-8";
-    LC_NAME = "ar_EG.UTF-8";
-    LC_NUMERIC = "ar_EG.UTF-8";
-    LC_PAPER = "ar_EG.UTF-8";
-    LC_TELEPHONE = "ar_EG.UTF-8";
-    LC_TIME = "ar_EG.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    # LC_ADDRESS = "ar_EG.UTF-8";
+    # LC_IDENTIFICATION = "ar_EG.UTF-8";
+    # LC_MEASUREMENT = "ar_EG.UTF-8";
+    # LC_MONETARY = "ar_EG.UTF-8";
+    # LC_NAME = "ar_EG.UTF-8";
+    # LC_NUMERIC = "ar_EG.UTF-8";
+    # LC_PAPER = "ar_EG.UTF-8";
+    # LC_TELEPHONE = "ar_EG.UTF-8";
+    # LC_TIME = "ar_EG.UTF-8";
   };
 
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
@@ -35,11 +46,6 @@
   services.greetd.settings.default_session = {
     command = "start-hyprland"; # or "sway" etc.
     user = "rami"; # replace with your Linux username
-  };
-
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
   };
 
   services.postgresql = {
@@ -79,6 +85,7 @@
   xdg.portal.extraPortals = [
     pkgs.xdg-desktop-portal-hyprland
     pkgs.xdg-desktop-portal-gtk
+    #pkgs.xdg-desktop-portal-kde
   ];
   xdg.portal.config.common.default = "gtk";
 
@@ -145,7 +152,19 @@
     swww
     mpv
     ffmpeg-full
-    # ags
+    gtk3
+    gtk4
+    thunar-volman
+    thunar-archive-plugin
+
+    pkgs-stable.kdePackages.kio
+    pkgs-stable.kdePackages.kio-fuse
+    pkgs-stable.kdePackages.kio-extras
+    pkgs-stable.kdePackages.qtsvg
+    pkgs-stable.kdePackages.dolphin
+    pkgs-stable.kdePackages.kservice
+    pkgs-stable.kdePackages.kconfig
+    pkgs-stable.kdePackages.plasma-workspace
   ];
 
   nix.settings.experimental-features = [

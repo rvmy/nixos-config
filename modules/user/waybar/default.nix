@@ -289,7 +289,7 @@
         #network,
         #pulseaudio,
         #custom-notification,
-        #custom-logo{
+        #custom-logo {
           min-width: 12px;
           padding: 0 4px;
           margin: 1px 3px 1px 3px;

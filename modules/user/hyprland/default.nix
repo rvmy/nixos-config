@@ -15,7 +15,7 @@
 
         "$mainMod" = "SUPER";
         "$terminal" = "ghostty";
-        "$fileManager" = "natulis";
+        "$fileManager" = "thunar";
 
         monitor = [
           ",preferred,auto,auto"
@@ -88,23 +88,23 @@
           rounding = 10;
           rounding_power = 2;
           active_opacity = 1.0;
-          inactive_opacity = 0.90;
           shadow = {
             enabled = true;
             range = 4;
             render_power = 3;
           };
-
           blur = {
             enabled = true;
-            size = 4;
-            passes = 3;
-            #     noise = 0.08;
-            # contrast = 1.5;
-            # xray = false;
-            # #     vibrancy = 0.1696;
-            # ignore_opacity = false;
-            # new_optimizations = true;
+
+            size = 6;
+            passes = 4;
+
+            noise = 0.0;
+            contrast = 1.0;
+            vibrancy = 0.12;
+
+            ignore_opacity = false;
+            new_optimizations = true;
           };
         };
 
@@ -146,6 +146,7 @@
           "$mainMod, F1, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, exec, $fileManager"
+          "$mainMod SHIFT, F, exec, dolphin"
           "$mainMod, X, exec, togglefloating"
           "$mainMod SHIFT, W, exec, kitty --title yazi -e yazi ~/pictures/wallpapers/"
           "$mainMod, W, exec,  ags toggle wall-picker"
@@ -155,7 +156,7 @@
           "$mainMod, J, togglesplit,"
           "$mainMod, SPACE, exec,  rofi -show drun"
           "$mainMod, Q, exec, mic-toggle"
-          ", PRINT, exec, ~/.config/waybar/scripts/screenshot.sh area"
+          ", PRINT, exec, screenshot area"
           "$mainMod, E, exec, zeditor"
 
           # focus
@@ -215,10 +216,16 @@
 
         windowrule = [
           "opacity 0.8 0.8, match:class ^(kitty)$"
-          "opacity 0.9 0.9, match:class ^(discord)$"
+
+          "opacity 0.95 0.95, match:class ^(discord)$"
           "opacity 0.8 0.8, match:class ^(com\.mitchellh\.ghostty)$"
           "float on, match:class ^(kitty)$, match:title ^(yazi)$"
           "size 850 250, match:class ^(kitty)$, match:title ^(yazi)$"
+          "opacity 0.8 0.8, match:class ^(org\.gnome\.Nautilus)$"
+          "opacity 0.8 0.8, match:class ^(org\.kde\.dolphin)$"
+          "opacity 0.8 0.8, match:class ^(thunar)$"
+          "opacity 0.8 0.8, match:class ^(Spotify)$"
+          "no_blur on, match:class ^(discord)$"
           {
             name = "suppress-maximize-events";
             match = {

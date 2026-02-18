@@ -15,35 +15,6 @@
     configDir = ../../ags;
   };
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "video/mp4" = [ "mpv.desktop" ];
-      "image/png" = [ "feh.desktop" ];
-      "image/jpeg" = [ "feh.desktop" ];
-      "image/webp" = [ "feh.desktop" ];
-    };
-  };
-  programs.obs-studio = {
-    enable = true;
-
-    # optional Nvidia hardware acceleration
-    package = (
-      pkgs-stable.obs-studio.override {
-        cudaSupport = true;
-      }
-    );
-
-    plugins = with pkgs-stable.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
-      obs-vaapi # optional AMD hardware acceleration
-      obs-gstreamer
-      obs-vkcapture
-    ];
-  };
-
   stylix = {
     enable = true;
     polarity = "dark";
@@ -83,16 +54,12 @@
       hyprland.enable = true;
       ghostty.enable = true;
       starship.enable = false;
-      gtk = {
-        enable = true;
-        #flatpakSupport.enable = true;
-      };
+      gtk.enable = true;
       zed.enable = true;
       rofi.enable = true;
       yazi.enable = true;
       qt.enable = true;
       kde.enable = true;
-
     };
   };
 
@@ -166,8 +133,6 @@
   user.waybar.enable = true;
   user.rofi.enable = true;
 
-  xdg.configFile."menus/applications.menu".source =
-    "${pkgs-stable.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   programs.kitty = {
     enable = true;
     extraConfig = "";
@@ -194,12 +159,8 @@
     copyq
     grim
     nautilus
-    ffmpeg
-    kdePackages.ffmpegthumbs
     #helix
     slurp
-    # pkgs-stable.natron
-    krita
     wl-clipboard
     ghidra
     vscodium
@@ -210,14 +171,6 @@
     rmpc
     pkgs-master.yt-dlp
     bat
-    # kdePackages.plasma-workspace
-    # kdePackages.kservice
-    # pkgs-stable.kdePackages.kio
-    # pkgs-stable.kdePackages.kio-fuse
-    # pkgs-stable.kdePackages.kio-extras
-    # pkgs-stable.kdePackages.qtsvg
-    # pkgs-stable.kdePackages.dolphin
-    # pkgs-stable.kdePackages.kservice
 
     dysk
     pastel
@@ -230,9 +183,6 @@
     pkgs-stable.kdePackages.kdenlive
     nemo
     davinci-resolve
-    flameshot
-    satty
-    easyeffects
     # fastfetch
     # mpd
     # rmpc
