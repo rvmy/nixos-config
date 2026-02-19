@@ -19,6 +19,11 @@
     enable = true;
     defaultApplications = {
       "video/mp4" = [ "mpv.desktop" ];
+      #  "video/x-matroska" = [ "mpv.desktop" ];
+      #    "video/webm" = [ "mpv.desktop" ];
+      #  "video/avi" = [ "mpv.desktop" ];
+      "audio/mpeg" = [ "mpv.desktop" ];
+      #  "audio/flac" = [ "mpv.desktop" ];
       "image/png" = [ "feh.desktop" ];
       "image/jpeg" = [ "feh.desktop" ];
       "image/webp" = [ "feh.desktop" ];
@@ -77,6 +82,24 @@
       size = 24;
     };
 
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font Mono";
+      };
+
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
+      };
+
+      sizes = {
+        terminal = 10;
+        applications = 11;
+        desktop = 10;
+        popups = 10;
+      };
+    };
     targets = {
       waybar.enable = false;
       kitty.enable = true;
@@ -85,36 +108,44 @@
       starship.enable = false;
       gtk = {
         enable = true;
+
         #flatpakSupport.enable = true;
       };
       zed.enable = true;
       rofi.enable = true;
       yazi.enable = true;
-      qt.enable = true;
+      qt = {
+        enable = true;
+        platform = "qtct";
+      };
       kde.enable = true;
-
     };
   };
 
-  stylix.fonts = {
-    monospace = {
-      package = pkgs.nerd-fonts.jetbrains-mono;
-      name = "JetBrainsMono Nerd Font Mono";
-    };
+  programs.feh = {
+    enable = true;
 
-    emoji = {
-      package = pkgs.noto-fonts-color-emoji;
-      name = "Noto Color Emoji";
+    themes = {
+      feh = [
+        "--full-screen"
+      ];
     };
+    buttons = {
+      zoom_in = "4";
+      zoom_out = "5";
+    };
+    keybindings = {
+      prev_img = [
+        "h"
+        "Left"
+      ];
+      next_img = [
+        "l"
+        "Right"
+      ];
 
-    sizes = {
-      terminal = 10;
-      applications = 11;
-      desktop = 10;
-      popups = 10;
     };
   };
-
   ## Yazi File Manager
   programs.yazi = {
     enable = true;
@@ -166,17 +197,13 @@
   user.waybar.enable = true;
   user.rofi.enable = true;
 
-  xdg.configFile."menus/applications.menu".source =
-    "${pkgs-stable.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   programs.kitty = {
     enable = true;
     extraConfig = "";
     settings = {
-      # ❌ Never ask before closing
       confirm_os_window_close = 0;
     };
     font = {
-      #name = "JetBrainsMono Nerd Font";
       name = lib.mkForce "JetBrainsMono Nerd Font";
       size = lib.mkForce 11;
     };
@@ -187,7 +214,6 @@
     font-awesome
     nerd-fonts.jetbrains-mono
     noto-fonts-color-emoji
-    #  noto-fonts-emoji
     swaynotificationcenter
     libnotify
     firejail
@@ -195,10 +221,7 @@
     grim
     nautilus
     ffmpeg
-    kdePackages.ffmpegthumbs
-    #helix
     slurp
-    # pkgs-stable.natron
     krita
     wl-clipboard
     ghidra
@@ -210,15 +233,6 @@
     rmpc
     pkgs-master.yt-dlp
     bat
-    # kdePackages.plasma-workspace
-    # kdePackages.kservice
-    # pkgs-stable.kdePackages.kio
-    # pkgs-stable.kdePackages.kio-fuse
-    # pkgs-stable.kdePackages.kio-extras
-    # pkgs-stable.kdePackages.qtsvg
-    # pkgs-stable.kdePackages.dolphin
-    # pkgs-stable.kdePackages.kservice
-
     dysk
     pastel
     calcure
@@ -230,25 +244,54 @@
     pkgs-stable.kdePackages.kdenlive
     nemo
     davinci-resolve
+    wireshark
     flameshot
     satty
     easyeffects
-    # fastfetch
-    # mpd
-    # rmpc
-    # spotifyd
-    # spotify-player
-    #librespot
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    #  kdePackages.breeze
-    # kdePackages.qt6ct
-    # kdePackages.qtwayland
-    # kdePackages.qtsvg
-
-    #   kdePackages.breeze-icons
+    inkscape
+    caligula
+    hyprpicker
+    #zoxide
+    ffmpeg
+    podman-tui
+    alacritty
   ];
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
+  programs.mpv = {
+    enable = true;
+    config = {
+      # vo = "gpu";
+      # gpu-context = "wayland";
+      # hwdec = "auto";
+
+      # scale = "lanczos";
+      # cscale = "bilinear";
+      # dscale = "bilinear";
+
+      # deband = "yes";
+      # deband-iterations = 1;
+      # deband-threshold = 25;
+      # deband-range = 12;
+      # deband-grain = 3;
+
+      # ## Sync (important)
+      # video-sync = "audio";
+      # interpolation = "no";
+    };
+    scripts = with pkgs.mpvScripts; [
+      # other scripts you might have
+      uosc
+      thumbfast
+      sponsorblock
+    ];
+    # You may also want a UI script that calls thumbfast, like uosc if it were packaged in nixpkgs
+    # For now, ensure you have a compatible UI or use the default OSC (On-Screen Controller)
+    # The default OSC doesn't natively support thumbfast thumbnails, a separate UI script is usually needed
+  };
   programs.cava = {
     enable = true;
     settings = {
@@ -272,28 +315,13 @@
     };
   };
 
-  qt = {
-    enable = true;
-  };
-
-  home.file.".config/kdeglobals".text = ''
-    [Icons]
-    Theme=Tela-purple-dark
-  '';
   gtk = {
     iconTheme = {
       name = "Tela-purple-dark";
       package = pkgs.tela-icon-theme;
-
     };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-
   };
+
   services.mpd = {
     enable = true;
     musicDirectory = "/home/rami/mpd/audio";

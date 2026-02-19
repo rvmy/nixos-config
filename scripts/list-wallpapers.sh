@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WALLDIR="$HOME/pictures/wallpapers"
+WALLDIR="$HOME/Pictures/immutable-wallpapers"
 
 find "$WALLDIR" -type f \
   \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \

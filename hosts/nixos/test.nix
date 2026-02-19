@@ -15,6 +15,35 @@
     configDir = ../../ags;
   };
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "video/mp4" = [ "mpv.desktop" ];
+      "image/png" = [ "feh.desktop" ];
+      "image/jpeg" = [ "feh.desktop" ];
+      "image/webp" = [ "feh.desktop" ];
+    };
+  };
+  programs.obs-studio = {
+    enable = true;
+
+    # optional Nvidia hardware acceleration
+    package = (
+      pkgs-stable.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+
+    plugins = with pkgs-stable.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi # optional AMD hardware acceleration
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
+
   stylix = {
     enable = true;
     polarity = "dark";
@@ -48,40 +77,73 @@
       size = 24;
     };
 
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font Mono";
+      };
+
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
+      };
+
+      sizes = {
+        terminal = 10;
+        applications = 11;
+        desktop = 10;
+        popups = 10;
+      };
+    };
     targets = {
       waybar.enable = false;
       kitty.enable = true;
       hyprland.enable = true;
       ghostty.enable = true;
       starship.enable = false;
-      gtk.enable = true;
+      gtk = {
+        enable = true;
+
+        #flatpakSupport.enable = true;
+      };
       zed.enable = true;
       rofi.enable = true;
       yazi.enable = true;
-      qt.enable = true;
+      qt = {
+        enable = true;
+        platform = "qtct";
+      };
       kde.enable = true;
     };
   };
 
-  stylix.fonts = {
-    monospace = {
-      package = pkgs.nerd-fonts.jetbrains-mono;
-      name = "JetBrainsMono Nerd Font Mono";
-    };
+  programs.feh = {
+    enable = true;
 
-    emoji = {
-      package = pkgs.noto-fonts-color-emoji;
-      name = "Noto Color Emoji";
+    themes = {
+      feh = [
+        "--full-screen"
+      ];
     };
+    buttons = {
+      zoom_in = "4";
+      zoom_out = "5";
+    };
+    keybindings = {
+      prev_img = [
+        "h"
+        "Left"
+      ];
+      next_img = [
+        "l"
+        "Right"
+      ];
 
-    sizes = {
-      terminal = 10;
-      applications = 11;
-      desktop = 10;
-      popups = 10;
     };
+    # themes = {
+    #   wallpaper = "--bg-scale --no-fehbg";
+    # };
   };
-
   ## Yazi File Manager
   programs.yazi = {
     enable = true;
@@ -133,15 +195,21 @@
   user.waybar.enable = true;
   user.rofi.enable = true;
 
+  # home.file.".config/qt5ct/qt5ct.conf".text = ''
+  #   [Appearance]
+  #   icon_theme=Tela-purple-dark
+  #   style=Breeze
+  # '';
+
+  xdg.configFile."menus/applications.menu".source =
+    "${pkgs-stable.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   programs.kitty = {
     enable = true;
     extraConfig = "";
     settings = {
-      # ❌ Never ask before closing
       confirm_os_window_close = 0;
     };
     font = {
-      #name = "JetBrainsMono Nerd Font";
       name = lib.mkForce "JetBrainsMono Nerd Font";
       size = lib.mkForce 11;
     };
@@ -159,8 +227,10 @@
     copyq
     grim
     nautilus
-    #helix
+    ffmpeg
+    kdePackages.ffmpegthumbs
     slurp
+    krita
     wl-clipboard
     ghidra
     vscodium
@@ -171,7 +241,23 @@
     rmpc
     pkgs-master.yt-dlp
     bat
+    # pkgs-stable.kdePackages.kio
+    # pkgs-stable.kdePackages.kio-fuse
+    # pkgs-stable.kdePackages.kio-extras
+    # pkgs-stable.kdePackages.qtsvg
+    kdePackages.dolphin
+    #  pkgs-stable.kdePackages.kconfigwidgets
+    #  pkgs-stable.kdePackages.systemsettings
+    #   pkgs-stable.kdePackages.plasma-integration
+    #  pkgs-stable.kdePackages.kservice
+    #   pkgs-stable.kdePackages.kconfig
+    #  pkgs-stable.kdePackages.plasma-workspace
+    kdePackages.kio
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
+    kdePackages.qtsvg
 
+    libsForQt5.qt5ct
     dysk
     pastel
     calcure
@@ -183,6 +269,10 @@
     pkgs-stable.kdePackages.kdenlive
     nemo
     davinci-resolve
+    flameshot
+    satty
+    easyeffects
+
     # fastfetch
     # mpd
     # rmpc
@@ -190,12 +280,11 @@
     # spotify-player
     #librespot
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
     #  kdePackages.breeze
-    # kdePackages.qt6ct
-    # kdePackages.qtwayland
-    # kdePackages.qtsvg
-
+    # pkgs-stable.kdePackages.qt6ct
+    pkgs-stable.kdePackages.qtwayland
+    # pkgs-stable.kdePackages.plasma-integration
+    # pkgs-stable.kdePackages.systemsettings
     #   kdePackages.breeze-icons
   ];
 
@@ -222,28 +311,13 @@
     };
   };
 
-  qt = {
-    enable = true;
-  };
-
-  home.file.".config/kdeglobals".text = ''
-    [Icons]
-    Theme=Tela-purple-dark
-  '';
   gtk = {
     iconTheme = {
       name = "Tela-purple-dark";
       package = pkgs.tela-icon-theme;
-
     };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-
   };
+
   services.mpd = {
     enable = true;
     musicDirectory = "/home/rami/mpd/audio";

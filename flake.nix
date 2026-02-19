@@ -92,8 +92,7 @@
                   source = ./assets/sounds;
                   recursive = true;
                 };
-
-                home.file."/pictures/wallpapers" = {
+                home.file."/Pictures/immutable-wallpapers" = {
                   source = ./assets/wallpapers;
                   recursive = true;
                 };

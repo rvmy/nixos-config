@@ -146,31 +146,31 @@
   };
   programs.virt-manager.enable = true;
   environment.systemPackages = with pkgs; [
+    #  win-virtio
+    # win-spice
+    spice-protocol
+    spice
+    spice-gtk
+    virt-viewer
     vim
     wget
     hyprpaper
     swww
-    mpv
+    # mpv
     ffmpeg-full
     gtk3
     gtk4
     thunar-volman
     thunar-archive-plugin
+    ffmpeg
 
-    pkgs-stable.kdePackages.kio
-    pkgs-stable.kdePackages.kio-fuse
-    pkgs-stable.kdePackages.kio-extras
-    pkgs-stable.kdePackages.qtsvg
-    pkgs-stable.kdePackages.dolphin
-    pkgs-stable.kdePackages.kservice
-    pkgs-stable.kdePackages.kconfig
-    pkgs-stable.kdePackages.plasma-workspace
   ];
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

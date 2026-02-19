@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="$HOME/pictures/wallpapers"
+WALLPAPER_DIR="$HOME/Pictures/immutable-wallpapers"
 mkdir -p "$WALLPAPER_DIR"
 
 # Check if swww daemon is running

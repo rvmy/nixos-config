@@ -4,7 +4,7 @@ import { execAsync } from "ags/process"
 import GLib from "gi://GLib"
 import Gio from "gi://Gio"
 import { onCleanup } from "ags"
-const wallpaperPath = `${GLib.get_home_dir()}/pictures/wallpapers`
+const wallpaperPath = `${GLib.get_home_dir()}/Pictures/immutable-wallpapers`
 
 function getWallpaperList(): string[] {
   try {

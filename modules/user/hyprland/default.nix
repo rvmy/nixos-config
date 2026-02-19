@@ -146,7 +146,8 @@
           "$mainMod, F1, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, exec, $fileManager"
-          "$mainMod SHIFT, F, exec, dolphin"
+          "$mainMod SHIFT, F, exec, nautilus"
+          "$mainMod CTRL, F, exec, nemo"
           "$mainMod, X, exec, togglefloating"
           "$mainMod SHIFT, W, exec, kitty --title yazi -e yazi ~/pictures/wallpapers/"
           "$mainMod, W, exec,  ags toggle wall-picker"
@@ -224,8 +225,17 @@
           "opacity 0.8 0.8, match:class ^(org\.gnome\.Nautilus)$"
           "opacity 0.8 0.8, match:class ^(org\.kde\.dolphin)$"
           "opacity 0.8 0.8, match:class ^(thunar)$"
+          "opacity 0.8 0.8, match:class ^(nemo)$"
           "opacity 0.8 0.8, match:class ^(Spotify)$"
           "no_blur on, match:class ^(discord)$"
+          "float on, match:class ^(mpv)$"
+          "float on, match:class ^(mpv)$"
+          "min_size 900 600, match:class ^(mpv)$"
+          "max_size 1920 1080, match:class ^(mpv)$"
+          "float on, match:class ^(feh)$"
+          "center on, match:class ^(feh)$"
+          "min_size 900 600, match:class ^(feh)$"
+          "max_size 1200 900, match:class ^(feh)$"
           {
             name = "suppress-maximize-events";
             match = {

@@ -17,7 +17,7 @@ in
     autoEnable = true;
     polarity = "dark";
     targets = {
-      qt.enable = true;
+      qt.enable = false;
       #  kde.enable = true;
     };
 
