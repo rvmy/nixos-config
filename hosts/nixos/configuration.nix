@@ -106,6 +106,11 @@
 
       starship init fish | source
     '';
+
+    shellAliases = {
+      els = "eza --icons --group-directories-first";
+      ell = "eza -l --icons --group-directories-first";
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -136,22 +141,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = false;
-      swtpm.enable = true;
-    };
-  };
-  programs.virt-manager.enable = true;
   environment.systemPackages = with pkgs; [
-    #  win-virtio
-    # win-spice
-    spice-protocol
-    spice
-    spice-gtk
-    virt-viewer
     vim
     wget
     hyprpaper
@@ -163,14 +153,26 @@
     thunar-volman
     thunar-archive-plugin
     ffmpeg
+    appimage-run
+    distrobox
 
   ];
 
+  users.users.rami = {
+    isNormalUser = true;
+    description = "rami";
+    shell = pkgs.fish;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+  };
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
+  system.virtualisation.enable = false;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

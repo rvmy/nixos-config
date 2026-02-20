@@ -227,6 +227,7 @@
     ghidra
     vscodium
     nil
+    nix-init
     nixd
     insomnia
     feh
@@ -251,10 +252,13 @@
     inkscape
     caligula
     hyprpicker
-    #zoxide
     ffmpeg
     podman-tui
+    eza
+    duf
     alacritty
+    dust
+    fzf
   ];
   programs.zoxide = {
     enable = true;

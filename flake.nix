@@ -51,12 +51,11 @@
         host:
         lib.nixosSystem {
           inherit system;
-          modules = [
+          modules = systemModules ++ [
             { networking.hostName = host; }
             (hostsPath + "/${host}")
             stylix.nixosModules.stylix
-          ]
-          ++ systemModules;
+          ];
           specialArgs = {
             # pkgs-master = import nixpkgs-master { inherit system; };
             pkgs-stable = import nixpkgs-stable { inherit system; };
