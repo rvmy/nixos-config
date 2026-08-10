@@ -16,56 +16,51 @@
 
   # Set your time zone.
   time.timeZone = "Africa/Cairo";
-  # programs.thunar.enable = true;
 
+  # Language
   i18n.defaultLocale = "en_US.UTF-8";
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # i18.
   i18n.extraLocaleSettings = {
     LC_ALL = "en_US.UTF-8";
-    # LC_ADDRESS = "ar_EG.UTF-8";
-    # LC_IDENTIFICATION = "ar_EG.UTF-8";
-    # LC_MEASUREMENT = "ar_EG.UTF-8";
-    # LC_MONETARY = "ar_EG.UTF-8";
-    # LC_NAME = "ar_EG.UTF-8";
-    # LC_NUMERIC = "ar_EG.UTF-8";
-    # LC_PAPER = "ar_EG.UTF-8";
-    # LC_TELEPHONE = "ar_EG.UTF-8";
-    # LC_TIME = "ar_EG.UTF-8";
   };
 
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
+
   services.xserver.enable = true;
-  services.greetd.enable = true;
-  services.greetd.settings.default_session = {
-    command = "start-hyprland"; # or "sway" etc.
-    user = "rami"; # replace with your Linux username
-  };
 
-  services.postgresql = {
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = false;
+  programs.niri.enable = true;
+  xdg.portal = {
     enable = true;
-    authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
-    '';
-
-    # Initial script runs once when the database cluster is created
-    initialScript = pkgs.writeText "backend-initScript" ''
-      CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypassword123';
-      CREATE DATABASE mydatabase;
-      GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
-      ALTER DATABASE mydatabase OWNER to myuser;
-    '';
-
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
+
+  # services.postgresql = {
+  #   enable = true;
+  #   authentication = pkgs.lib.mkOverride 10 ''
+  #     #type database  DBuser  auth-method
+  #     local all       all     trust
+  #   '';
+
+  #   # Initial script runs once when the database cluster is created
+  #   initialScript = pkgs.writeText "backend-initScript" ''
+  #     CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypassword123';
+  #     CREATE DATABASE mydatabase;
+  #     GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+  #     ALTER DATABASE mydatabase OWNER to myuser;
+  #   '';
+
+  # };
 
   # extraServices.podman.enable = true;
+  services.xserver.digimend.enable = true;
+
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -81,19 +76,7 @@
   };
 
   services.flatpak.enable = true;
-  programs.xfconf.enable = true;
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-hyprland
-    pkgs.xdg-desktop-portal-gtk
-    #pkgs.xdg-desktop-portal-kde
-  ];
-  xdg.portal.config.common.default = "gtk";
 
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
 
   programs.fish = {
     enable = true;
@@ -120,18 +103,38 @@
     enable = true;
   };
 
+
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  environment.etc."nvidia/nvidia-application-profiles-rc.d/50-niri-vram-fix.json".text = ''
+    {
+        "rules": [
+            { "pattern": { "feature": "procname", "matches": "niri" },
+              "profile": "Limit Free Buffer Pool On Wayland Compositors" }
+        ],
+        "profiles": [
+            { "name": "Limit Free Buffer Pool On Wayland Compositors",
+              "settings": [ { "key": "GLVidHeapReuseRatio", "value": 0 } ] }
+        ]
+    }
+  '';
+
+
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PowerMizerDefault=0x1; PowerMizerDefaultAC=0x1; PerfLevelSrc=0x2222"
+  '';
+
+  boot.kernel.sysctl."vm.max_map_count" = 1048576;
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -142,20 +145,19 @@
   # $ nix search wget
 
   environment.systemPackages = with pkgs; [
-    vim
-    wget
-    hyprpaper
-    swww
-    # mpv
+    fuzzel
+    waybar
+    noctalia-shell
     ffmpeg-full
-    gtk3
-    gtk4
-    thunar-volman
-    thunar-archive-plugin
-    ffmpeg
+    # vim
+    # wget
+    # gtk3
+    # gtk4
+    # thunar-volman
+    # thunar-archive-plugin
+    # ffmpeg
     appimage-run
     distrobox
-
   ];
 
   users.users.rami = {

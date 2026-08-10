@@ -31,7 +31,7 @@
       system = "x86_64-linux";
       lib = nixpkgs.lib;
       pkgs = nixpkgs.legacyPackages.${system};
-
+      packages = import ./pkgs { inherit pkgs; };
       # Helper functions
       auto = import ./lib/auto.nix { inherit lib; };
       scriptsLib = import ./lib/scripts.nix { inherit lib pkgs; };
@@ -85,7 +85,7 @@
               {
                 home.username = username;
                 home.homeDirectory = "/home/${username}";
-                home.stateVersion = "25.11";
+                home.stateVersion = "26.05";
                 home.packages = allScripts;
                 home.file.".config/sounds" = {
                   source = ./assets/sounds;
@@ -105,6 +105,7 @@
               pkgs-master = import nixpkgs-master { inherit system; };
               pkgs-stable = import nixpkgs-stable { inherit system; };
               hostCfg = hostCfg;
+              inherit packages;
             };
           };
         };
@@ -113,5 +114,6 @@
     {
       nixosConfigurations = lib.genAttrs hosts mkNixos;
       homeConfigurations = lib.listToAttrs allHomes;
+      packages.${system} = packages;
     };
 }

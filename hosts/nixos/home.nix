@@ -5,49 +5,51 @@
   pkgs-stable,
   lib,
   hostCfg,
+    packages,
   ...
 }:
 
 {
 
-  programs.ags = {
-    enable = true;
-    configDir = ../../ags;
-  };
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "video/mp4" = [ "mpv.desktop" ];
-      #  "video/x-matroska" = [ "mpv.desktop" ];
-      #    "video/webm" = [ "mpv.desktop" ];
-      #  "video/avi" = [ "mpv.desktop" ];
-      "audio/mpeg" = [ "mpv.desktop" ];
-      #  "audio/flac" = [ "mpv.desktop" ];
-      "image/png" = [ "feh.desktop" ];
-      "image/jpeg" = [ "feh.desktop" ];
-      "image/webp" = [ "feh.desktop" ];
-    };
-  };
-  programs.obs-studio = {
-    enable = true;
+  # programs.ags = {
+  #   enable = true;
+  #   configDir = ../../ags;
+  # };
 
-    # optional Nvidia hardware acceleration
-    package = (
-      pkgs-stable.obs-studio.override {
-        cudaSupport = true;
-      }
-    );
+  # xdg.mimeApps = {
+  #   enable = true;
+  #   defaultApplications = {
+  #     "video/mp4" = [ "mpv.desktop" ];
+  #     #  "video/x-matroska" = [ "mpv.desktop" ];
+  #     #    "video/webm" = [ "mpv.desktop" ];
+  #     #  "video/avi" = [ "mpv.desktop" ];
+  #     "audio/mpeg" = [ "mpv.desktop" ];
+  #     #  "audio/flac" = [ "mpv.desktop" ];
+  #     "image/png" = [ "feh.desktop" ];
+  #     "image/jpeg" = [ "feh.desktop" ];
+  #     "image/webp" = [ "feh.desktop" ];
+  #   };
+  # };
+  # programs.obs-studio = {
+  #   enable = true;
 
-    plugins = with pkgs-stable.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
-      obs-vaapi # optional AMD hardware acceleration
-      obs-gstreamer
-      obs-vkcapture
-    ];
-  };
+  #   # optional Nvidia hardware acceleration
+  #   package = (
+  #     pkgs-stable.obs-studio.override {
+  #       cudaSupport = true;
+  #     }
+  #   );
+
+  #   plugins = with pkgs-stable.obs-studio-plugins; [
+  #     wlrobs
+  #     obs-backgroundremoval
+  #     obs-pipewire-audio-capture
+  #     obs-vaapi # optional AMD hardware acceleration
+  #     obs-gstreamer
+  #     obs-vkcapture
+  #   ];
+  # };
 
   stylix = {
     enable = true;
@@ -109,7 +111,7 @@
       gtk = {
         enable = true;
 
-        #flatpakSupport.enable = true;
+        flatpakSupport.enable = true;
       };
       zed.enable = true;
       rofi.enable = true;
@@ -122,30 +124,8 @@
     };
   };
 
-  programs.feh = {
-    enable = true;
+    programs.feh.enable = true;
 
-    themes = {
-      feh = [
-        "--full-screen"
-      ];
-    };
-    buttons = {
-      zoom_in = "4";
-      zoom_out = "5";
-    };
-    keybindings = {
-      prev_img = [
-        "h"
-        "Left"
-      ];
-      next_img = [
-        "l"
-        "Right"
-      ];
-
-    };
-  };
   ## Yazi File Manager
   programs.yazi = {
     enable = true;
@@ -186,116 +166,114 @@
 
     };
   };
+
   user.helix.enable = true;
   user.starship.enable = true;
   user.zed.enable = true;
   user.git.enable = true;
   user.ghostty.enable = true;
   user.fastfetch.enable = true;
-  user.hyprland.enable = true;
   user.btop.enable = true;
-  user.waybar.enable = true;
-  user.rofi.enable = true;
 
-  programs.kitty = {
-    enable = true;
-    extraConfig = "";
-    settings = {
-      confirm_os_window_close = 0;
-    };
-    font = {
-      name = lib.mkForce "JetBrainsMono Nerd Font";
-      size = lib.mkForce 11;
-    };
-  };
+  # user.hyprland.enable = true;
+  # user.waybar.enable = true;
+  # user.rofi.enable = true;
+
+  # programs.kitty = {
+  #   enable = true;
+  #   extraConfig = "";
+  #   settings = {
+  #     confirm_os_window_close = 0;
+  #   };
+  #   font = {
+  #     name = lib.mkForce "JetBrainsMono Nerd Font";
+  #     size = lib.mkForce 11;
+  #   };
+  # };
+
+
   nixpkgs.config.allowUnfree = true;
-  #  programs.firejail.enable = true;
-  home.packages = with pkgs; [
-    font-awesome
-    nerd-fonts.jetbrains-mono
-    noto-fonts-color-emoji
-    swaynotificationcenter
-    libnotify
-    firejail
-    copyq
-    grim
-    nautilus
-    ffmpeg
-    slurp
-    krita
-    wl-clipboard
-    ghidra
-    vscodium
-    nil
-    nix-init
-    nixd
-    insomnia
-    feh
-    rmpc
-    pkgs-master.yt-dlp
-    bat
-    dysk
-    pastel
-    calcure
-    eww
-    fd
-    qutebrowser
-    blender
-    gimp
-    pkgs-stable.kdePackages.kdenlive
-    nemo
-    davinci-resolve
-    wireshark
-    flameshot
-    satty
-    easyeffects
-    inkscape
-    caligula
-    hyprpicker
-    ffmpeg
-    podman-tui
-    eza
-    duf
-    alacritty
-    dust
-    fzf
-  ];
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
-  };
 
+  home.packages = [
+    ## -- Browsers
+    pkgs.qutebrowser
+    packages.helium
+
+    ## -- File Managers
+    pkgs.nautilus
+    pkgs.nemo
+    pkgs.ranger
+    pkgs.kdePackages.dolphin
+
+    ## -- Terminals
+    pkgs.alacritty
+    pkgs.kitty
+    pkgs.foot
+    pkgs.wezterm
+
+    ## -- Cybersecurity Tools
+    pkgs.ghidra
+    pkgs.wireshark
+    pkgs.firejail
+
+    ## -- Creative Tools
+    pkgs.blender
+    pkgs.inkscape
+    pkgs.gimp
+    pkgs.davinci-resolve
+    pkgs-stable.kdePackages.kdenlive
+    pkgs.krita
+
+    ## -- Terminal Tools
+    pkgs.pastel # -- color tool.
+    pkgs.bat # -- alternative to cat.
+    pkgs.fd # -- alternative to find.
+    pkgs.dysk # -- utility listing your filesystems and disk.
+    pkgs.dust # -- alternative to du.
+    pkgs.duf # -- disk usage utility.
+    pkgs.eza # -- alternative to ls.
+    pkgs.fzf # -- interactive fuzzy finder.
+    pkgs.caligula # -- tool to flash usb.
+    pkgs.zoxide # -- zoxide is a smarter cd command.
+
+    ## -- Others
+    pkgs.xwayland-satellite
+    pkgs.gparted
+    pkgs.feh
+    pkgs.nil
+    pkgs.nix-init
+    pkgs.nixd
+    pkgs-master.yt-dlp
+    pkgs.devenv
+
+    #hyprpicker
+    #podman-tui
+    #satty
+    #easyeffects
+    pkgs.rmpc
+
+  ];
+
+
+
+  # xdg.configFile."menus/applications.menu".source =
+  #   "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
+
+  programs.swaylock.enable = true;
+  services.polkit-gnome.enable = true; # polkit
   programs.mpv = {
     enable = true;
-    config = {
-      # vo = "gpu";
-      # gpu-context = "wayland";
-      # hwdec = "auto";
 
-      # scale = "lanczos";
-      # cscale = "bilinear";
-      # dscale = "bilinear";
-
-      # deband = "yes";
-      # deband-iterations = 1;
-      # deband-threshold = 25;
-      # deband-range = 12;
-      # deband-grain = 3;
-
-      # ## Sync (important)
-      # video-sync = "audio";
-      # interpolation = "no";
-    };
-    scripts = with pkgs.mpvScripts; [
-      # other scripts you might have
-      uosc
-      thumbfast
-      sponsorblock
-    ];
-    # You may also want a UI script that calls thumbfast, like uosc if it were packaged in nixpkgs
-    # For now, ensure you have a compatible UI or use the default OSC (On-Screen Controller)
-    # The default OSC doesn't natively support thumbfast thumbnails, a separate UI script is usually needed
+    # scripts = with pkgs.mpvScripts; [
+    #   # other scripts you might have
+    #   uosc
+    #   thumbfast
+    #   sponsorblock
+    # ];
   };
+
+
   programs.cava = {
     enable = true;
     settings = {
@@ -319,12 +297,12 @@
     };
   };
 
-  gtk = {
-    iconTheme = {
-      name = "Tela-purple-dark";
-      package = pkgs.tela-icon-theme;
-    };
-  };
+  # gtk = {
+  #   iconTheme = {
+  #     name = "Tela-purple-dark";
+  #     package = pkgs.tela-icon-theme;
+  #   };
+  # };
 
   services.mpd = {
     enable = true;

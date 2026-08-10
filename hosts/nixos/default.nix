@@ -54,7 +54,6 @@ in
 
   programs.thunar = {
     enable = true;
-
   };
 
   imports = [

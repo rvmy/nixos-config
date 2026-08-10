@@ -11,17 +11,12 @@
   programs.gamemode.enable = true;
   environment.systemPackages = with pkgs; [
     mangohud
-    heroic
-    # lutris
-    #proton-ge-bin
+    # heroic
+    protonup-qt
   ];
 
   programs.gamescope = {
     enable = true;
     capSysNice = false;
   };
-
-  # environment.sessionVariables = {
-  #   STEAM_EXTRA_COMPAT_TOOLS_PATHS = "~/.steam/root/compatibilitytools.d";
-  # };
 }
