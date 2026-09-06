@@ -197,7 +197,7 @@
   home.packages = [
     ## -- Browsers
     pkgs.qutebrowser
-    packages.helium
+    # packages.helium
 
     ## -- File Managers
     pkgs.nautilus
