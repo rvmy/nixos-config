@@ -52,9 +52,9 @@ in
 
   stylix.targets.gtk.enable = true;
 
-  programs.thunar = {
-    enable = true;
-  };
+  # programs.thunar = {
+  #   enable = true;
+  # };
 
   imports = [
     ./configuration.nix

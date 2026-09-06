@@ -1,6 +1,6 @@
 {
   host = {
-    mainUser = "rami";
-    stylixImage = ../../assets/wallpapers/wallpaper2.jpg;
+    mainUser = "solv";
+    stylixImage = ../../assets/wallpapers/wallpaper6.jpg;
   };
 }

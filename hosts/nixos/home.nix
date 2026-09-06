@@ -12,10 +12,10 @@
 {
 
 
-  # programs.ags = {
-  #   enable = true;
-  #   configDir = ../../ags;
-  # };
+  programs.ags = {
+    enable = true;
+    configDir = ../../ags;
+  };
 
   # xdg.mimeApps = {
   #   enable = true;
@@ -108,6 +108,7 @@
       hyprland.enable = true;
       ghostty.enable = true;
       starship.enable = false;
+      helix.enable= true;
       gtk = {
         enable = true;
 
@@ -124,7 +125,6 @@
     };
   };
 
-    programs.feh.enable = true;
 
   ## Yazi File Manager
   programs.yazi = {
@@ -174,30 +174,21 @@
   user.ghostty.enable = true;
   user.fastfetch.enable = true;
   user.btop.enable = true;
+  programs.feh.enable = true;
 
-  # user.hyprland.enable = true;
-  # user.waybar.enable = true;
-  # user.rofi.enable = true;
-
-  # programs.kitty = {
-  #   enable = true;
-  #   extraConfig = "";
-  #   settings = {
-  #     confirm_os_window_close = 0;
-  #   };
-  #   font = {
-  #     name = lib.mkForce "JetBrainsMono Nerd Font";
-  #     size = lib.mkForce 11;
-  #   };
-  # };
-
+  user.hyprland.enable = true;
+  user.waybar.enable = true;
+  user.rofi.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
   home.packages = [
+    # pkgs.git
     ## -- Browsers
     pkgs.qutebrowser
-    # packages.helium
+    packages.helium
+    pkgs.aria2
+    pkgs.ripgrep
 
     ## -- File Managers
     pkgs.nautilus
@@ -216,7 +207,7 @@
     pkgs.wireshark
     pkgs.firejail
 
-    ## -- Creative Tools
+    # -- Creative Tools
     pkgs.blender
     pkgs.inkscape
     pkgs.gimp
@@ -237,11 +228,11 @@
     pkgs.zoxide # -- zoxide is a smarter cd command.
 
     ## -- Others
-    pkgs.xwayland-satellite
+    # pkgs.xwayland-satellite
     pkgs.gparted
     pkgs.feh
-    pkgs.nil
-    pkgs.nix-init
+    # pkgs.nil
+    # pkgs.nix-initf
     pkgs.nixd
     pkgs-master.yt-dlp
     pkgs.devenv
@@ -251,6 +242,7 @@
     #satty
     #easyeffects
     pkgs.rmpc
+    pkgs.awww
 
   ];
 
@@ -262,15 +254,17 @@
 
   programs.swaylock.enable = true;
   services.polkit-gnome.enable = true; # polkit
+
+
   programs.mpv = {
     enable = true;
 
-    # scripts = with pkgs.mpvScripts; [
-    #   # other scripts you might have
-    #   uosc
-    #   thumbfast
-    #   sponsorblock
-    # ];
+    scripts = with pkgs.mpvScripts; [
+      # other scripts you might have
+      uosc
+      thumbfast
+      sponsorblock
+    ];
   };
 
 
@@ -306,8 +300,8 @@
 
   services.mpd = {
     enable = true;
-    musicDirectory = "/home/rami/mpd/audio";
-    playlistDirectory = "/home/rami/mpd/playlists";
+    musicDirectory = "/home/solv/mpd/audio";
+    playlistDirectory = "/home/solv/mpd/playlists";
     extraConfig = ''
       audio_output {
         type "pipewire"

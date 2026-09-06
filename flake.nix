@@ -14,6 +14,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # caelestia-shell = {
+    #   url = "github:caelestia-dots/shell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
@@ -68,7 +72,8 @@
         let
           hostPath = hostsPath + "/${host}";
           hostCfg = import (hostPath + "/config.nix");
-          username = hostCfg.host.mainUser or (throw "host.username not defined in ${host}/config.nix");
+          # username = hostCfg.host.mainUser or (throw "host.username not defined in ${host}/config.nix");
+          username = "solv";
           userFile = hostPath + "/home.nix";
 
           globalScripts = scriptsLib.mkScriptsFromDir globalScriptsPath;
@@ -77,7 +82,7 @@
           allScripts = globalScripts ++ hostScripts;
         in
         {
-          name = host;
+          name = "solv";
           value = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = userModules ++ [

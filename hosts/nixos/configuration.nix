@@ -17,8 +17,9 @@
   # Set your time zone.
   time.timeZone = "Africa/Cairo";
 
-  # Language
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
   i18n.extraLocaleSettings = {
     LC_ALL = "en_US.UTF-8";
   };
@@ -28,12 +29,18 @@
     variant = "";
   };
 
+  programs.hyprland.enable = true;
+
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = false;
-  programs.niri.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = false;
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  # programs.niri.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = [
@@ -59,7 +66,7 @@
   # };
 
   # extraServices.podman.enable = true;
-  services.xserver.digimend.enable = true;
+  # services.xserver.digimend.enable = true;
 
 
   # Enable CUPS to print documents.
@@ -109,32 +116,17 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  environment.etc."nvidia/nvidia-application-profiles-rc.d/50-niri-vram-fix.json".text = ''
-    {
-        "rules": [
-            { "pattern": { "feature": "procname", "matches": "niri" },
-              "profile": "Limit Free Buffer Pool On Wayland Compositors" }
-        ],
-        "profiles": [
-            { "name": "Limit Free Buffer Pool On Wayland Compositors",
-              "settings": [ { "key": "GLVidHeapReuseRatio", "value": 0 } ] }
-        ]
-    }
-  '';
 
 
-  boot.extraModprobeConfig = ''
-    options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PowerMizerDefault=0x1; PowerMizerDefaultAC=0x1; PerfLevelSrc=0x2222"
-  '';
 
-  boot.kernel.sysctl."vm.max_map_count" = 1048576;
+  # boot.kernel.sysctl."vm.max_map_count" = 1048576;
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -145,9 +137,9 @@
   # $ nix search wget
 
   environment.systemPackages = with pkgs; [
-    fuzzel
-    waybar
-    noctalia-shell
+    # fuzzel
+    # waybar
+    # noctalia-shell
     ffmpeg-full
     # vim
     # wget
@@ -160,21 +152,24 @@
     distrobox
   ];
 
-  users.users.rami = {
+  users.users."solv" = {
     isNormalUser = true;
-    description = "rami";
+    description = "solv";
+    extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.fish;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
+    packages = with pkgs; [
+      kdePackages.kate
+    #  thunderbird
     ];
   };
+
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
-  system.virtualisation.enable = true;
+  # system.virtualisation.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

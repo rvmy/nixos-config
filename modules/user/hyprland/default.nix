@@ -10,6 +10,7 @@
   config = lib.mkIf config.user.hyprland.enable {
 
     wayland.windowManager.hyprland = {
+      configType = "hyprlang";
       enable = true;
       settings = {
 
@@ -29,9 +30,9 @@
         exec-once = [
           "ags run"
           "waybar"
-          "swww-daemon"
+          "awww-daemon"
           "swaync"
-          "sleep 1.5 && swww img ${hostCfg.host.stylixImage} --transition-type grow --transition-duration 1"
+          "sleep 1.5 && awww img ${hostCfg.host.stylixImage} --transition-type grow --transition-duration 1"
         ];
 
         input = {
@@ -59,7 +60,7 @@
         };
 
         dwindle = {
-          pseudotile = true;
+          # pseudotile = true;
           preserve_split = true;
 
         };
@@ -143,7 +144,7 @@
 
         bind = [
           "$mainMod, Return, exec, $terminal"
-          "$mainMod, F1, killactive,"
+          "$mainMod, C, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, exec, $fileManager"
           "$mainMod SHIFT, F, exec, nautilus"
@@ -151,13 +152,13 @@
           "$mainMod, X, exec, togglefloating"
           "$mainMod SHIFT, W, exec, kitty --title yazi -e yazi ~/pictures/wallpapers/"
           "$mainMod, W, exec,  ags toggle wall-picker"
-          "$mainMod, V, exec, copyq toggle"
+          # "$mainMod, V, exec, copyq toggle"
           "$mainMod, R, exec, ~/.config/waybar/scripts/launch.sh"
           "$mainMod, P, pseudo,"
-          "$mainMod, J, togglesplit,"
+          # "$mainMod, J, togglesplit,"
           "$mainMod, SPACE, exec,  rofi -show drun"
           "$mainMod, Q, exec, mic-toggle"
-          ", PRINT, exec, screenshot area"
+          "$mainMod, S, exec, screenshot area"
           "$mainMod, E, exec, zeditor"
 
           # focus
@@ -191,8 +192,8 @@
           "$mainMod SHIFT, 0, movetoworkspace, 10"
 
           # special workspace
-          "$mainMod, S, togglespecialworkspace, magic"
-          "$mainMod SHIFT, S, movetoworkspace, special:magic"
+          # "$mainMod, S, togglespecialworkspace, magic"
+          # "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
           # scroll workspaces
           "$mainMod, mouse_down, workspace, e+1"
@@ -215,58 +216,58 @@
           ",XF86AudioPrev, exec, playerctl previous"
         ];
 
-        windowrule = [
-          "opacity 0.8 0.8, match:class ^(kitty)$"
+        # windowrule = [
+        #   "opacity 0.8 0.8, match:class ^(kitty)$"
 
-          "opacity 0.95 0.95, match:class ^(discord)$"
-          "opacity 0.8 0.8, match:class ^(com\.mitchellh\.ghostty)$"
-          "float on, match:class ^(kitty)$, match:title ^(yazi)$"
-          "size 850 250, match:class ^(kitty)$, match:title ^(yazi)$"
-          "opacity 0.8 0.8, match:class ^(org\.gnome\.Nautilus)$"
-          "opacity 0.8 0.8, match:class ^(org\.kde\.dolphin)$"
-          "opacity 0.8 0.8, match:class ^(thunar)$"
-          "opacity 0.8 0.8, match:class ^(nemo)$"
-          "opacity 0.8 0.8, match:class ^(Spotify)$"
-          "no_blur on, match:class ^(discord)$"
-          "float on, match:class ^(mpv)$"
-          "float on, match:class ^(mpv)$"
-          "min_size 900 600, match:class ^(mpv)$"
-          "max_size 1920 1080, match:class ^(mpv)$"
-          "float on, match:class ^(feh)$"
-          "center on, match:class ^(feh)$"
-          "min_size 900 600, match:class ^(feh)$"
-          "max_size 1200 900, match:class ^(feh)$"
-          {
-            name = "suppress-maximize-events";
-            match = {
-              class = ".*";
-            };
-            suppress_event = "maximize";
-          }
+        #   "opacity 0.95 0.95, match:class ^(discord)$"
+        #   "opacity 0.8 0.8, match:class ^(com\.mitchellh\.ghostty)$"
+        #   "float on, match:class ^(kitty)$, match:title ^(yazi)$"
+        #   "size 850 250, match:class ^(kitty)$, match:title ^(yazi)$"
+        #   "opacity 0.8 0.8, match:class ^(org\.gnome\.Nautilus)$"
+        #   "opacity 0.8 0.8, match:class ^(org\.kde\.dolphin)$"
+        #   "opacity 0.8 0.8, match:class ^(thunar)$"
+        #   "opacity 0.8 0.8, match:class ^(nemo)$"
+        #   "opacity 0.8 0.8, match:class ^(Spotify)$"
+        #   "no_blur on, match:class ^(discord)$"
+        #   "float on, match:class ^(mpv)$"
+        #   "float on, match:class ^(mpv)$"
+        #   "min_size 900 600, match:class ^(mpv)$"
+        #   "max_size 1920 1080, match:class ^(mpv)$"
+        #   "float on, match:class ^(feh)$"
+        #   "center on, match:class ^(feh)$"
+        #   "min_size 900 600, match:class ^(feh)$"
+        #   "max_size 1200 900, match:class ^(feh)$"
+        #   {
+        #     name = "suppress-maximize-events";
+        #     match = {
+        #       class = ".*";
+        #     };
+        #     suppress_event = "maximize";
+        #   }
 
-          {
-            name = "fix-xwayland-drags";
-            match = {
-              class = "^$";
-              title = "^$";
-              xwayland = true;
-              float = true;
-              fullscreen = false;
-              pin = false;
-            };
-            no_focus = true;
-          }
+        #   {
+        #     name = "fix-xwayland-drags";
+        #     match = {
+        #       class = "^$";
+        #       title = "^$";
+        #       xwayland = true;
+        #       float = true;
+        #       fullscreen = false;
+        #       pin = false;
+        #     };
+        #     no_focus = true;
+        #   }
 
-          {
-            name = "move-hyprland-run";
-            match = {
-              class = "hyprland-run";
-            };
-            move = "20 monitor_h-120";
-            float = true;
-          }
+        #   {
+        #     name = "move-hyprland-run";
+        #     match = {
+        #       class = "hyprland-run";
+        #     };
+        #     move = "20 monitor_h-120";
+        #     float = true;
+        #   }
 
-        ];
+        # ];
       };
     };
 

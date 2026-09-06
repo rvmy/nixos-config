@@ -72,7 +72,7 @@ export default function WallPicker() {
                 cursor={Gdk.Cursor.new_from_name("pointer", null)}
                 onClicked={() =>
                   execAsync([
-                    "swww",
+                    "awww",
                     "img",
                     wall,
                     "--transition-type",
