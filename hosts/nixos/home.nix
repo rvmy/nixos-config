@@ -189,6 +189,7 @@
     packages.helium
     pkgs.aria2
     pkgs.ripgrep
+    pkgs.quickshell
 
     ## -- File Managers
     pkgs.nautilus
